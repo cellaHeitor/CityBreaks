@@ -1,0 +1,65 @@
+﻿@page
+@model CityBreaks.Pages.FilterPropertiesModel
+
+<h2>Filter Properties</h2>
+
+<form method="get">
+    <div>
+        <label>Min Price:</label>
+        <input type="number" step="0.01" asp-for="MinPrice" />
+    </div>
+    <div>
+        <label>Max Price:</label>
+        <input type="number" step="0.01" asp-for="MaxPrice" />
+    </div>
+    <div>
+        <label>City Name:</label>
+        <input type="text" asp-for="CityName" />
+    </div>
+    <div>
+        <label>Property Name:</label>
+        <input type="text" asp-for="PropertyName" />
+    </div>
+    <button type="submit">Search</button>
+</form>
+
+@if (Model.Properties != null && Model.Properties.Count > 0)
+{
+    <h3>Results:</h3>
+    <ul>
+        @foreach (var property in Model.Properties)
+        {
+            <li>
+                <strong>@property.Name</strong> - $@property.PricePerNight per night <br />
+                City: @property.City.Name, Country: @property.City.Country.CountryName
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>No properties found with the specified filters.</p>
+}
+
+@if (Model.MinPrice.HasValue || Model.MaxPrice.HasValue || !string.IsNullOrEmpty(Model.CityName) || !string.IsNullOrEmpty(Model.PropertyName))
+{
+    <p>Filters applied:</p>
+    <ul>
+        @if (Model.MinPrice.HasValue)
+        {
+            <li>Min Price: $@Model.MinPrice</li>
+        }
+        @if (Model.MaxPrice.HasValue)
+        {
+            <li>Max Price: $@Model.MaxPrice</li>
+        }
+        @if (!string.IsNullOrEmpty(Model.CityName))
+        {
+            <li>City Name contains: "@Model.CityName"</li>
+        }
+        @if (!string.IsNullOrEmpty(Model.PropertyName))
+        {
+            <li>Property Name contains: "@Model.PropertyName"</li>
+        }
+    </ul>
+}

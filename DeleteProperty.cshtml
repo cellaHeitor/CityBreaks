@@ -1,0 +1,12 @@
+﻿@page "{id:int}"
+@model CityBreaks.Pages.DeletePropertyModel
+
+<h2>Confirm Delete Property</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="PropertyId" />
+    <p>Are you sure you want to delete this property (ID: @Model.PropertyId)?</p>
+
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-page="/Index" class="btn btn-secondary">Cancel</a>
+</form>

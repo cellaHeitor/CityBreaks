@@ -1,0 +1,28 @@
+﻿@page "{Name}"
+@model CityBreaks.Pages.CityDetailsModel
+
+<h2>City Details: @Model.City.Name</h2>
+<p><strong>Country:</strong> @Model.City.Country.CountryName</p>
+
+<h3>Properties:</h3>
+@if (Model.City.Properties?.Count > 0)
+{
+    <ul>
+        @foreach (var property in Model.City.Properties)
+        {
+            <li>
+                @property.Name - Price per night: $@property.PricePerNight
+                <a asp-page="/EditProperty" asp-route-id="@property.Id">Edit</a> |
+                <a asp-page="/DeleteProperty" asp-route-id="@property.Id"
+                   onclick="return confirm('Are you sure you want to delete this property?');"
+                   style="color:red;">
+                    Delete
+                </a>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>No properties found for this city.</p>
+}

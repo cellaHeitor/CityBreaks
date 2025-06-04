@@ -1,0 +1,19 @@
+﻿@page
+@model CityBreaks.Pages.IndexModel
+
+<h2>Cities and Properties</h2>
+
+@foreach (var city in Model.Cities)
+{
+    <h3>
+        <a asp-page="/CityDetails" asp-route-name="@city.Name">
+            @city.Name (@city.Country.CountryName)
+        </a>
+    </h3>
+    <ul>
+        @foreach (var property in city.Properties)
+        {
+            <li>@property.Name - Price per night: $@property.PricePerNight</li>
+        }
+    </ul>
+}
